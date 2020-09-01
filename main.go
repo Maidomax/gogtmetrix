@@ -4,9 +4,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -47,7 +45,6 @@ func (c *Client) Test(siteURL string) (*TestRefference, error) {
 	resp, err := httpClient.Do(req)
 
 	if err != nil {
-		log.Println(err)
 		return &TestRefference{}, err
 	} else {
 		defer resp.Body.Close()
@@ -57,9 +54,6 @@ func (c *Client) Test(siteURL string) (*TestRefference, error) {
 	testRefference := &TestRefference{}
 
 	json.Unmarshal(body, testRefference)
-
-	log.Println("Tested " + siteURL + ". Refference: " + testRefference.TestID)
-	fmt.Println(testRefference)
 
 	if testRefference.Error != "" {
 		return testRefference, errors.New(testRefference.Error)
@@ -87,7 +81,6 @@ func (c *Client) PollResults(tr *TestRefference) (*TestModel, error) {
 	resp, err := httpClient.Do(req)
 
 	if err != nil {
-		log.Println(err)
 		return &TestModel{}, err
 	} else {
 		defer resp.Body.Close()
@@ -111,8 +104,6 @@ func (c *Client) WaitForResults(tr *TestRefference) (*TestModel, error) {
 		if err != nil {
 			return result, err
 		}
-
-		log.Println(result)
 
 		if result.State == "completed" || result.State == "error" {
 			return result, nil
