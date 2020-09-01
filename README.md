@@ -4,7 +4,9 @@ A Golang SDK for GTmetrix
 ## Usage
 Firtly, get an instance of an authenticated GTmetrix client with:
 ``` go
-import https://github.com/Maidomax/gogtmetrix
+import (
+    "github.com/Maidomax/gogtmetrix"
+)
 
 c := gogtmetrix.GetClient("my-username", "my-password")
 ```
