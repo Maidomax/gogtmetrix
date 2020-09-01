@@ -1,5 +1,5 @@
 // gogtmetrix helps you use the GTmetrix API from Golang
-package main
+package gogtmetrix
 
 import (
 	"encoding/json"
